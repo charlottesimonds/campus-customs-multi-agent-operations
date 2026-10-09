@@ -1,0 +1,740 @@
+{
+  "generated_from": [
+    "output/audit_trail.json",
+    "data/campus_customs_new.db"
+  ],
+  "clean_run": {
+    "reset_audit_seq": 335,
+    "reset_at": "2026-10-08T21:42:49+00:00",
+    "reset_verified_identical_to_original": true,
+    "note": "Audit records after this reset are the graded run. An earlier attempt (audit records 174–334) was undone by this reset because of garbled approver names."
+  },
+  "resolution_definition": "Operational resolution means the agents completed all of the actionable work available to them inside the simulation: the necessary human approvals were obtained and recorded, the decisions were documented, and the communications were prepared as drafts. The simulation cannot send messages, place purchase orders with vendors, receive deliveries, or record a customer's reply (the assignment prohibits contacting real customers or vendors), so those external steps are listed as outstanding. This is a limitation of the simulation, not work the agents left undone, and nothing here implies that a product was delivered, a purchase order was executed, or an offer was accepted. A ticket's status becomes 'resolved' only when the Boss agent decides so after this work is done; the backend then records it.",
+  "cash": {
+    "start_after_reset": 3400.0,
+    "payments": [
+      {
+        "id": 1,
+        "kind": "rent",
+        "ref_id": 1,
+        "amount": 2400.0,
+        "approved_by": "Charlotte Simonds"
+      },
+      {
+        "id": 2,
+        "kind": "invoice",
+        "ref_id": 501,
+        "amount": 840.0,
+        "approved_by": "Charlotte Simonds"
+      }
+    ],
+    "end_cash_accounts_checking": 160.0
+  },
+  "tickets": [
+    {
+      "ticket_id": 101,
+      "type": "customer_order",
+      "requester": "Tauhid Zaman",
+      "subject": "Bulldog tee",
+      "final_status": "resolved",
+      "status_set": {
+        "audit_seq": 744,
+        "at": "2026-10-08T22:03:52+00:00",
+        "by": "backend, after the Boss decided 'resolved'",
+        "deciding_run_id": "f6d2e5216407"
+      },
+      "outcome": "Resolved operationally. Approved: payment of invoice 501 ($840, recorded as payment 2) and the restock of 1 size-S tee (a decision; no purchase order record exists). Accomplished: the agents verified the stockout, the vendor block and cash across tickets, prepared both approvals, and drafted an order inquiry to Bulldog Print Co and a reply to Tauhid Zaman. External steps outstanding: sending the drafts, the vendor's confirmation, and ordering and delivering the tee. These are steps the simulation cannot perform.",
+      "boss_final_summary": "Size S is out of stock. The restock decision is approved, but no order has been placed; customer and vendor drafts are ready for human review and sending.",
+      "cash_impact": -840.0,
+      "runs": [
+        {
+          "run_id": "8474639c4420",
+          "started": "2026-10-08T21:44:27+00:00",
+          "finished": "2026-10-08T21:45:56+00:00",
+          "status": "completed",
+          "decision": "awaiting_approval",
+          "error": null,
+          "boss_contacted_first": [
+            "inventory",
+            "accounting",
+            "customer_service"
+          ],
+          "specialist_to_specialist": [
+            "accounting -> inventory",
+            "customer_service -> inventory",
+            "inventory -> accounting",
+            "inventory -> accounting"
+          ],
+          "mcp_tool_calls": 27
+        },
+        {
+          "run_id": "3e26ed819cd3",
+          "started": "2026-10-08T21:49:50+00:00",
+          "finished": "2026-10-08T21:50:57+00:00",
+          "status": "completed",
+          "decision": "awaiting_approval",
+          "error": null,
+          "boss_contacted_first": [
+            "accounting",
+            "inventory",
+            "customer_service"
+          ],
+          "specialist_to_specialist": [
+            "customer_service -> inventory",
+            "customer_service -> accounting"
+          ],
+          "mcp_tool_calls": 19
+        },
+        {
+          "run_id": "8c75cb6fad82",
+          "started": "2026-10-08T21:58:26+00:00",
+          "finished": "2026-10-08T21:59:17+00:00",
+          "status": "completed",
+          "decision": "awaiting_approval",
+          "error": null,
+          "boss_contacted_first": [
+            "accounting",
+            "inventory",
+            "customer_service"
+          ],
+          "specialist_to_specialist": [],
+          "mcp_tool_calls": 11
+        },
+        {
+          "run_id": "f6d2e5216407",
+          "started": "2026-10-08T22:02:37+00:00",
+          "finished": "2026-10-08T22:03:52+00:00",
+          "status": "completed",
+          "decision": "resolved",
+          "error": null,
+          "boss_contacted_first": [
+            "accounting",
+            "inventory",
+            "customer_service"
+          ],
+          "specialist_to_specialist": [],
+          "mcp_tool_calls": 8
+        }
+      ],
+      "agent_contributions": [
+        {
+          "agent": "boss",
+          "runs_participated": 4,
+          "asked_by": {},
+          "delegated_to": {
+            "inventory": 4,
+            "accounting": 6,
+            "customer_service": 4
+          },
+          "mcp_tools_used": {
+            "get_ticket": 3
+          },
+          "proposed": [],
+          "drafted": [],
+          "final_summary": "Size S is out of stock. The restock decision is approved, but no order has been placed; customer and vendor drafts are ready for human review and sending."
+        },
+        {
+          "agent": "inventory",
+          "runs_participated": 4,
+          "asked_by": {
+            "boss": 4,
+            "accounting": 1,
+            "customer_service": 2
+          },
+          "delegated_to": {
+            "accounting": 2
+          },
+          "mcp_tools_used": {
+            "get_product_stock_and_pricing": 7,
+            "list_vendors": 7,
+            "check_vendor_invoice_status": 7
+          },
+          "proposed": [],
+          "drafted": [
+            "vendor: Bulldog Print Co — Order request: 1 CC-TEE-WHITE, size S"
+          ],
+          "final_summary": "CC-TEE-WHITE size S has 0 on hand in Aisle B, so the request for 1 is short by 1. Bulldog Print Co is cleared to ship because invoice 501 is recorded paid; it specializes in apparel reprints, and its 5-day lead time means earliest arrival would be 2026-09-05 if ordered today. The ticket's restock decision is already approved, so I am not proposing it again; no order has been placed, and vendor price, payment terms, and actual delivery date remain unconfirmed."
+        },
+        {
+          "agent": "accounting",
+          "runs_participated": 4,
+          "asked_by": {
+            "boss": 6,
+            "inventory": 2,
+            "customer_service": 1
+          },
+          "delegated_to": {
+            "inventory": 1
+          },
+          "mcp_tools_used": {
+            "get_payment_history": 13,
+            "check_vendor_invoice_status": 8,
+            "get_cash_balance": 7,
+            "get_product_stock_and_pricing": 4,
+            "preview_payment_plan": 3,
+            "get_ticket": 2
+          },
+          "proposed": [
+            "Pay invoice 501 to Bulldog Print Co to resolve the overdue invoice and remove the stated vendor shipping block; this payment is pending human approval and was not made.",
+            "Prepare a human-approval proposal to order 1 CC-TEE-WHITE, size S, from Bulldog Print Co. Estimated cost: $8.00 using the $8.00 accounting unit cost; vendor price and payment terms are unverified. Do not promise fulfillment before the order arrives.",
+            "Request human approval to place an order for 1 CC-TEE-WHITE, size S, from Bulldog Print Co. Estimated cost: $8.00 (1 × $8.00 accounting unit cost); this is not a vendor quote or confirmed purchase obligation. Vendor price and payment terms must be verified before commitment. Do not promise fulfillment before the item arrives."
+          ],
+          "drafted": [],
+          "final_summary": "Invoice 501 is marked paid, and payment history records Charlotte Simonds’ $840.00 payment on 2026-08-31; no further payment for that invoice is needed or proposed. Checking cash is currently $160.00; the approved one-tee restock’s $8.00 figure is only the accounting unit cost, while Bulldog Print Co’s vendor price and payment terms are unverified, so there is no verified restock payment amount requiring approval now."
+        },
+        {
+          "agent": "customer_service",
+          "runs_participated": 4,
+          "asked_by": {
+            "boss": 4
+          },
+          "delegated_to": {
+            "inventory": 2,
+            "accounting": 1
+          },
+          "mcp_tools_used": {
+            "get_product_stock_and_pricing": 4
+          },
+          "proposed": [],
+          "drafted": [
+            "customer: Tauhid Zaman — Your Bulldog tee request",
+            "customer: Tauhid Zaman — Your Bulldog tee in size S",
+            "customer: Tauhid Zaman — Re: Bulldog tee",
+            "customer: Tauhid Zaman — Bulldog tee in size S"
+          ],
+          "final_summary": "Draft prepared for Tauhid Zaman. The size S tee is out of stock; the restock decision was approved, but no purchase order has been placed, so fulfillment and an arrival date cannot be promised."
+        }
+      ],
+      "human_approvals": [
+        {
+          "proposal_id": "9fe1ce27f389",
+          "kind": "payment",
+          "requested_by_agent": "accounting",
+          "agent_wording": "Pay invoice 501 to Bulldog Print Co to resolve the overdue invoice and remove the stated vendor shipping block; this payment is pending human approval and was not made.",
+          "amount": 840.0,
+          "status": "paid",
+          "purpose": "Pay overdue invoice 501 ($840) to Bulldog Print Co, which blocked the vendor from shipping restocks.",
+          "approved_by": "Charlotte Simonds",
+          "approved_at": "2026-10-08T21:47:57+00:00",
+          "audit_seq": 512,
+          "human_note": null,
+          "payment_recorded": {
+            "payments_id": 2,
+            "amount": 840.0,
+            "paid_at": "2026-08-31",
+            "approved_by": "Charlotte Simonds",
+            "audit_seq": 513
+          },
+          "cash_moved": true
+        },
+        {
+          "proposal_id": "84dc72378699",
+          "kind": "purchase_order",
+          "requested_by_agent": "accounting",
+          "agent_wording": "Prepare a human-approval proposal to order 1 CC-TEE-WHITE, size S, from Bulldog Print Co. Estimated cost: $8.00 using the $8.00 accounting unit cost; vendor price and payment terms are unverified. Do not promise fulfillment before the order arrives.",
+          "amount": 8.0,
+          "status": "approved",
+          "purpose": "Approve restocking 1 CC-TEE-WHITE size S from Bulldog Print Co (estimated $8.00 at accounting unit cost; not a vendor quote).",
+          "approved_by": "Charlotte Simonds",
+          "approved_at": "2026-10-08T21:55:10+00:00",
+          "audit_seq": 641,
+          "human_note": "Approved as a restock decision only. No purchase order has been placed with the vendor and the tee has not arrived; the system has no purchase-order table or inventory-arrival mechanism. $8.00 is the accounting unit cost, not a confirmed vendor price.",
+          "cash_moved": false
+        },
+        {
+          "proposal_id": "ef575f8e2121",
+          "kind": "purchase_order",
+          "requested_by_agent": "accounting",
+          "agent_wording": "Request human approval to place an order for 1 CC-TEE-WHITE, size S, from Bulldog Print Co. Estimated cost: $8.00 (1 × $8.00 accounting unit cost); this is not a vendor quote or confirmed purchase obligation. Vendor price and payment terms must be verified before commitment. Do not promise fulfillment before the item arrives.",
+          "amount": 8.0,
+          "status": "superseded",
+          "note": "Never decided; superseded by the next run of this ticket (it re-requested an action already approved)."
+        }
+      ],
+      "drafted_messages_not_sent": [
+        {
+          "audience": "vendor",
+          "to": "Bulldog Print Co",
+          "drafted_by": "inventory",
+          "subject": "Order request: 1 CC-TEE-WHITE, size S",
+          "body": "Hello Bulldog Print Co,\n\nPlease confirm whether you can supply 1 CC-TEE-WHITE (Classic Bulldog Tee), size S. If available, please confirm your actual price, payment terms, and expected delivery date before we proceed. Our records show invoice 501 as paid, and we understand your lead time is 5 days; please confirm the delivery timing for this item.\n\nThank you,\nCampus Customs"
+        },
+        {
+          "audience": "customer",
+          "to": "Tauhid Zaman",
+          "drafted_by": "customer_service",
+          "subject": "Bulldog tee in size S",
+          "body": "Hi Tauhid, thanks for reaching out. We’re currently out of the Bulldog tee in size S. The decision to restock one has been approved, but we haven’t placed the order yet, so we can’t promise fulfillment or an arrival date. The listed price is $28.00. We’ll follow up once we have an update."
+        }
+      ],
+      "outstanding_dependencies": [
+        "A human must send the vendor draft; the system cannot contact Bulldog Print Co or place the order.",
+        "Bulldog Print Co must confirm availability, actual price, payment terms, and delivery timing; the $8.00 accounting unit cost is not a vendor quote.",
+        "The tee must be ordered and delivered before it can fulfill the customer's request; no order has been placed and the 5-day lead time is not a confirmed delivery date.",
+        "A human must send the customer draft; the system does not send messages."
+      ],
+      "operational_resolution": {
+        "approved_by_human": [
+          "Payment of vendor invoice 501, $840.00 to Bulldog Print Co: approved by Charlotte Simonds and recorded (payments.id 2).",
+          "Restock of 1 Classic Bulldog Tee (CC-TEE-WHITE), size S, from Bulldog Print Co: approved by Charlotte Simonds as a decision only. The estimated $8.00 is the accounting unit cost, not a vendor price; no purchase order record exists."
+        ],
+        "accomplished_by_agents": [
+          "Confirmed size S is out of stock (0 on hand) and that Bulldog Print Co could not ship while invoice 501 was unpaid.",
+          "Checked cash across tickets: paying invoice 501 together with ticket 102's rent leaves $160.00 of the $3,400.00.",
+          "Prepared the invoice payment and the restock for human approval, then confirmed after payment that the vendor is cleared to ship.",
+          "Drafted an order inquiry to Bulldog Print Co asking it to confirm availability, price, payment terms, and delivery date.",
+          "Drafted a reply to Tauhid Zaman saying the tee is out of stock, the restock is approved but not yet ordered, and no arrival date is promised."
+        ],
+        "external_steps_outstanding": [
+          "A person sends the drafted order inquiry to Bulldog Print Co and the drafted reply to Tauhid Zaman.",
+          "Bulldog Print Co confirms availability, its actual price, payment terms, and delivery date.",
+          "The order is placed and the tee is delivered (earliest 2026-09-05 if ordered on 2026-08-31; not confirmed), then supplied to the customer."
+        ],
+        "not_claimed": [
+          "The tee has not been ordered, shipped, or delivered.",
+          "No message has been sent."
+        ]
+      }
+    },
+    {
+      "ticket_id": 102,
+      "type": "rent_notice",
+      "requester": "Elm City Properties",
+      "subject": "Rent due",
+      "final_status": "resolved",
+      "status_set": {
+        "audit_seq": 669,
+        "at": "2026-10-08T21:58:15+00:00",
+        "by": "backend, after the Boss decided 'resolved'",
+        "deciding_run_id": "9030e8ba7b2e"
+      },
+      "outcome": "The $2,400 rent for the 2026-09-02 installment of lease 1 was paid with human approval (payment 1); the lease's next unpaid installment is now 2026-10-02. A note asking the landlord to confirm receipt was drafted.",
+      "boss_final_summary": "The $2,400 September 2 rent installment is recorded as paid on August 31. A landlord reply is drafted for review.",
+      "cash_impact": -2400.0,
+      "runs": [
+        {
+          "run_id": "89bf34aaab87",
+          "started": "2026-10-08T21:43:19+00:00",
+          "finished": "2026-10-08T21:44:16+00:00",
+          "status": "completed",
+          "decision": "awaiting_approval",
+          "error": null,
+          "boss_contacted_first": [
+            "facilities",
+            "accounting",
+            "customer_service"
+          ],
+          "specialist_to_specialist": [
+            "customer_service -> facilities",
+            "facilities -> accounting",
+            "facilities -> accounting"
+          ],
+          "mcp_tool_calls": 20
+        },
+        {
+          "run_id": "37d76af0ea68",
+          "started": "2026-10-08T21:48:12+00:00",
+          "finished": "2026-10-08T21:49:41+00:00",
+          "status": "failed",
+          "decision": null,
+          "error": "Connection error.",
+          "boss_contacted_first": [
+            "facilities",
+            "accounting",
+            "customer_service"
+          ],
+          "specialist_to_specialist": [],
+          "mcp_tool_calls": 1
+        },
+        {
+          "run_id": "85318a203180",
+          "started": "2026-10-08T21:52:38+00:00",
+          "finished": "2026-10-08T21:53:26+00:00",
+          "status": "completed",
+          "decision": "needs_more_information",
+          "error": null,
+          "boss_contacted_first": [
+            "facilities",
+            "accounting",
+            "customer_service"
+          ],
+          "specialist_to_specialist": [
+            "customer_service -> accounting"
+          ],
+          "mcp_tool_calls": 11
+        },
+        {
+          "run_id": "9030e8ba7b2e",
+          "started": "2026-10-08T21:57:24+00:00",
+          "finished": "2026-10-08T21:58:15+00:00",
+          "status": "completed",
+          "decision": "resolved",
+          "error": null,
+          "boss_contacted_first": [
+            "facilities",
+            "accounting",
+            "customer_service"
+          ],
+          "specialist_to_specialist": [
+            "customer_service -> accounting"
+          ],
+          "mcp_tool_calls": 6
+        }
+      ],
+      "agent_contributions": [
+        {
+          "agent": "boss",
+          "runs_participated": 4,
+          "asked_by": {},
+          "delegated_to": {
+            "facilities": 4,
+            "accounting": 4,
+            "customer_service": 5
+          },
+          "mcp_tools_used": {
+            "get_ticket": 3
+          },
+          "proposed": [],
+          "drafted": [],
+          "final_summary": "The $2,400 September 2 rent installment is recorded as paid on August 31. A landlord reply is drafted for review."
+        },
+        {
+          "agent": "facilities",
+          "runs_participated": 4,
+          "asked_by": {
+            "boss": 4,
+            "customer_service": 1
+          },
+          "delegated_to": {
+            "accounting": 2
+          },
+          "mcp_tools_used": {
+            "get_ticket": 3,
+            "get_lease_rent_status": 4,
+            "get_payment_history": 4,
+            "preview_payment_plan": 2
+          },
+          "proposed": [],
+          "drafted": [],
+          "final_summary": "Lease 1 is the Chapel Street shop, with monthly rent of $2,400.00 payable to Elm City Properties. The September 2, 2026 installment is satisfied: a $2,400 rent payment was recorded on August 31, and the lease record identifies October 2, 2026 as the next unpaid due date (32 days away as of the shop date, August 31)."
+        },
+        {
+          "agent": "accounting",
+          "runs_participated": 4,
+          "asked_by": {
+            "boss": 4,
+            "facilities": 2,
+            "customer_service": 2
+          },
+          "delegated_to": {},
+          "mcp_tools_used": {
+            "get_lease_rent_status": 6,
+            "get_payment_history": 7,
+            "get_cash_balance": 4,
+            "preview_payment_plan": 3
+          },
+          "proposed": [
+            "Pay the 2026-09-02 rent installment for lease 1 to Elm City Properties, after confirming other pending payment requests leave enough cash."
+          ],
+          "drafted": [],
+          "final_summary": "Payment history shows a $2,400 rent payment recorded for lease 1 on 2026-08-31, approved by Charlotte Simonds; the system payment record is ID 1. This supports saying the payment was recorded/posted in the shop’s records, but the tool does not provide an external bank transaction or settlement reference, nor independently identify the installment due date."
+        },
+        {
+          "agent": "customer_service",
+          "runs_participated": 4,
+          "asked_by": {
+            "boss": 5
+          },
+          "delegated_to": {
+            "facilities": 1,
+            "accounting": 2
+          },
+          "mcp_tools_used": {
+            "get_ticket": 2
+          },
+          "proposed": [],
+          "drafted": [
+            "landlord: Elm City Properties — Re: Rent due",
+            "vendor: Elm City Properties — Re: Rent due",
+            "landlord: Elm City Properties — Rent payment recorded for September 2 installment"
+          ],
+          "final_summary": "Drafted a landlord reply using the shop’s recorded payment status; nothing has been sent."
+        }
+      ],
+      "human_approvals": [
+        {
+          "proposal_id": "57b460e0bf8d",
+          "kind": "payment",
+          "requested_by_agent": "accounting",
+          "agent_wording": "Pay the 2026-09-02 rent installment for lease 1 to Elm City Properties, after confirming other pending payment requests leave enough cash.",
+          "amount": 2400.0,
+          "status": "paid",
+          "purpose": "Pay the $2,400 rent installment for lease 1 due 2026-09-02 to Elm City Properties.",
+          "approved_by": "Charlotte Simonds",
+          "approved_at": "2026-10-08T21:47:54+00:00",
+          "audit_seq": 510,
+          "human_note": null,
+          "payment_recorded": {
+            "payments_id": 1,
+            "amount": 2400.0,
+            "paid_at": "2026-08-31",
+            "approved_by": "Charlotte Simonds",
+            "audit_seq": 511
+          },
+          "cash_moved": true
+        }
+      ],
+      "drafted_messages_not_sent": [
+        {
+          "audience": "landlord",
+          "to": "Elm City Properties",
+          "drafted_by": "customer_service",
+          "subject": "Rent payment recorded for September 2 installment",
+          "body": "Hello Elm City Properties,\n\nOur records show a rent payment of $2,400 for lease 1 recorded on August 31, 2026, for the installment due September 2. Could you please confirm receipt?\n\nThank you,\nCampus Customs"
+        }
+      ],
+      "outstanding_dependencies": [
+        "Elm City Properties' confirmation of receipt, if requested in the drafted reply."
+      ],
+      "operational_resolution": {
+        "approved_by_human": [
+          "Rent payment of $2,400.00 to Elm City Properties for lease 1, installment due 2026-09-02: approved by Charlotte Simonds and recorded (payments.id 1)."
+        ],
+        "accomplished_by_agents": [
+          "Confirmed the rent amount and due date, that no rent payment existed, and that checking could cover it ($3,400.00 to $1,000.00).",
+          "Prepared the rent payment for human approval.",
+          "After payment, confirmed payment 1 covers the 2026-09-02 installment and the next unpaid installment is 2026-10-02.",
+          "Drafted a note to Elm City Properties asking it to confirm receipt."
+        ],
+        "external_steps_outstanding": [
+          "A person sends the drafted note, and Elm City Properties confirms receipt."
+        ],
+        "not_claimed": [
+          "No message has been sent. Within the simulation the payment itself is complete: it is recorded in payments and deducted from cash_accounts."
+        ]
+      }
+    },
+    {
+      "ticket_id": 103,
+      "type": "price_override",
+      "requester": "Yale AI Club",
+      "subject": "Bulk hoodie discount",
+      "final_status": "resolved",
+      "status_set": {
+        "audit_seq": 719,
+        "at": "2026-10-08T22:00:20+00:00",
+        "by": "backend, after the Boss decided 'resolved'",
+        "deciding_run_id": "e28ae39245c4"
+      },
+      "outcome": "Resolved operationally. Approved: the 10% discount ($52.20 per hoodie) for the 8 size-M hoodies in stock, with the option to wait for the remaining 12 (decisions only; no cash moved). Accomplished: the agents verified stock (8 of 20), margins and cash across tickets, and drafted an offer to the Yale AI Club. External steps outstanding: sending the offer, the club's choice, and any funded restock of the 12. These are steps the simulation cannot perform.",
+      "boss_final_summary": "Prepared the approved $52.20 quote for up to 8 in-stock hoodies; the customer must choose whether to take the partial order or wait for the remaining 12.",
+      "cash_impact": 0,
+      "runs": [
+        {
+          "run_id": "109a3b6f56b3",
+          "started": "2026-10-08T21:46:07+00:00",
+          "finished": "2026-10-08T21:47:27+00:00",
+          "status": "completed",
+          "decision": "awaiting_approval",
+          "error": null,
+          "boss_contacted_first": [
+            "inventory",
+            "accounting",
+            "customer_service"
+          ],
+          "specialist_to_specialist": [
+            "customer_service -> accounting",
+            "inventory -> accounting",
+            "accounting -> inventory",
+            "customer_service -> inventory",
+            "inventory -> accounting"
+          ],
+          "mcp_tool_calls": 28
+        },
+        {
+          "run_id": "802e4f84d4ba",
+          "started": "2026-10-08T21:51:06+00:00",
+          "finished": "2026-10-08T21:52:02+00:00",
+          "status": "completed",
+          "decision": "awaiting_approval",
+          "error": null,
+          "boss_contacted_first": [
+            "inventory",
+            "accounting",
+            "customer_service"
+          ],
+          "specialist_to_specialist": [],
+          "mcp_tool_calls": 10
+        },
+        {
+          "run_id": "e28ae39245c4",
+          "started": "2026-10-08T21:59:27+00:00",
+          "finished": "2026-10-08T22:00:20+00:00",
+          "status": "completed",
+          "decision": "resolved",
+          "error": null,
+          "boss_contacted_first": [
+            "inventory",
+            "customer_service"
+          ],
+          "specialist_to_specialist": [],
+          "mcp_tool_calls": 5
+        }
+      ],
+      "agent_contributions": [
+        {
+          "agent": "boss",
+          "runs_participated": 3,
+          "asked_by": {},
+          "delegated_to": {
+            "inventory": 3,
+            "accounting": 3,
+            "customer_service": 3
+          },
+          "mcp_tools_used": {
+            "get_ticket": 3
+          },
+          "proposed": [],
+          "drafted": [],
+          "final_summary": "Prepared the approved $52.20 quote for up to 8 in-stock hoodies; the customer must choose whether to take the partial order or wait for the remaining 12."
+        },
+        {
+          "agent": "inventory",
+          "runs_participated": 3,
+          "asked_by": {
+            "boss": 3,
+            "accounting": 1,
+            "customer_service": 1
+          },
+          "delegated_to": {
+            "accounting": 2
+          },
+          "mcp_tools_used": {
+            "get_product_stock_and_pricing": 5,
+            "list_vendors": 5,
+            "check_vendor_invoice_status": 5
+          },
+          "proposed": [],
+          "drafted": [],
+          "final_summary": "CC-HOOD-NAVY size M has 8 units on hand in Aisle A, so the current stock covers the approved 8-unit offer; the remaining 12 are short. Bulldog Print Co is a specialty-based potential apparel-reprint vendor and is clear to ship, with earliest arrival September 5, 2026 if ordered today, but no restock has been initiated or committed."
+        },
+        {
+          "agent": "accounting",
+          "runs_participated": 2,
+          "asked_by": {
+            "boss": 3,
+            "customer_service": 1,
+            "inventory": 2
+          },
+          "delegated_to": {
+            "inventory": 1
+          },
+          "mcp_tools_used": {
+            "get_cash_balance": 2,
+            "get_product_stock_and_pricing": 3,
+            "get_payment_history": 5,
+            "check_vendor_invoice_status": 3,
+            "preview_payment_plan": 3,
+            "evaluate_price_override": 5,
+            "get_ticket": 1
+          },
+          "proposed": [
+            "Optional 10% bulk-discount candidate for ticket 103: approve $52.20 per unit for 20 CC-HOOD-NAVY size-M hoodies (total $1,044.00). This is a recommendation for Boss/human review only; no price override is approved or applied.",
+            "Request human approval to quote $52.20 per unit for up to 8 CC-HOOD-NAVY size-M hoodies currently in stock (maximum order total $417.60). If approved, apply the override only if the club accepts the 8-unit offer; do not extend it to the 12-unit shortfall or commit to restocking."
+          ],
+          "drafted": [],
+          "final_summary": "The recorded decision is a candidate/recommendation, not an applied or fully authorized override, so a distinct human approval is still needed to quote $52.20 per hoodie. I recommend authorizing that price only for the 8 currently available size-M hoodies (maximum $417.60); apply it to an order only if Yale AI Club accepts, and take no price or restock action for the other 12 now."
+        },
+        {
+          "agent": "customer_service",
+          "runs_participated": 3,
+          "asked_by": {
+            "boss": 3
+          },
+          "delegated_to": {
+            "accounting": 1,
+            "inventory": 1
+          },
+          "mcp_tools_used": {
+            "get_product_stock_and_pricing": 2,
+            "get_ticket": 1
+          },
+          "proposed": [],
+          "drafted": [
+            "customer: Yale AI Club — Re: Bulk hoodie discount",
+            "customer: Yale AI Club — Your size-M hoodie request",
+            "customer: Yale AI Club — Bulk hoodie request"
+          ],
+          "final_summary": "Drafted a reply offering up to 8 currently available size-M hoodies at $52.20 each and asking whether Yale AI Club prefers the partial order or to wait for the other 12. The draft makes clear that nothing is reserved and no restock or arrival date is confirmed."
+        }
+      ],
+      "human_approvals": [
+        {
+          "proposal_id": "4f667697a5f8",
+          "kind": "price_override",
+          "requested_by_agent": "accounting",
+          "agent_wording": "Optional 10% bulk-discount candidate for ticket 103: approve $52.20 per unit for 20 CC-HOOD-NAVY size-M hoodies (total $1,044.00). This is a recommendation for Boss/human review only; no price override is approved or applied.",
+          "amount": null,
+          "status": "approved",
+          "purpose": "Approve a 10% bulk discount ($52.20 per hoodie instead of $58.00) for the Yale AI Club.",
+          "approved_by": "Charlotte Simonds",
+          "approved_at": "2026-10-08T21:48:00+00:00",
+          "audit_seq": 514,
+          "human_note": "Approved at $52.20 per hoodie (10% off the $58 list price). Offer the Yale AI Club the 8 size-M hoodies in stock now and give them the option to wait for the remaining 12. Do not assume the club accepts a partial order, and do not commit to restocking the 12: that is not currently funded, and the $22 accounting unit cost is not a confirmed vendor purchase price.",
+          "cash_moved": false
+        },
+        {
+          "proposal_id": "6cb94fd959ab",
+          "kind": "price_override",
+          "requested_by_agent": "accounting",
+          "agent_wording": "Request human approval to quote $52.20 per unit for up to 8 CC-HOOD-NAVY size-M hoodies currently in stock (maximum order total $417.60). If approved, apply the override only if the club accepts the 8-unit offer; do not extend it to the 12-unit shortfall or commit to restocking.",
+          "amount": null,
+          "status": "approved",
+          "purpose": "Approve quoting $52.20 per hoodie for up to the 8 size-M hoodies in stock (max $417.60), only if the club accepts.",
+          "approved_by": "Charlotte Simonds",
+          "approved_at": "2026-10-08T21:55:13+00:00",
+          "audit_seq": 642,
+          "human_note": "Approved at $52.20 per hoodie (10% off the $58 list price) for the 8 size-M hoodies in stock. Offer them to the Yale AI Club and give the club the option to wait for the remaining 12. Do not assume the club accepts a partial order, and do not commit to restocking the 12: that is not currently funded, and the $22 accounting unit cost is not a confirmed vendor purchase price.",
+          "cash_moved": false
+        }
+      ],
+      "drafted_messages_not_sent": [
+        {
+          "audience": "customer",
+          "to": "Yale AI Club",
+          "drafted_by": "customer_service",
+          "subject": "Bulk hoodie request",
+          "body": "Hi Yale AI Club,\n\nWe currently have 8 navy hoodies in size M available. We can offer up to 8 at $52.20 each, for a maximum total of $417.60. Would you prefer to proceed with an 8-hoodie partial order, or wait for the remaining 12? We haven’t reserved the available hoodies, and we can’t confirm a restock or arrival date for the remaining 12 yet.\n\nPlease let us know which option you prefer.\n\nBest,\nCampus Customs"
+        }
+      ],
+      "outstanding_dependencies": [
+        "The club's response to the customer message, once reviewed and sent, is needed to know whether it accepts the 8-unit partial offer or prefers to wait for the remaining 12.",
+        "No restock is committed for the 12-unit shortfall; any future restock would require a separate verified purchase plan and human approval."
+      ],
+      "operational_resolution": {
+        "approved_by_human": [
+          "10% bulk discount, $52.20 per hoodie (from the $58.00 list price): approved by Charlotte Simonds for 20 hoodies with a note limiting it to the 8 in stock and giving the club the option to wait for the remaining 12.",
+          "Quoting $52.20 for up to the 8 size-M hoodies in stock (at most $417.60), applied only if the club accepts: approved by Charlotte Simonds. Both are decisions only; no cash moved."
+        ],
+        "accomplished_by_agents": [
+          "Confirmed 8 of the 20 requested size-M hoodies are in stock (12 short) and checked the vendor's ability to ship.",
+          "Calculated margins: at $52.20 the shop keeps $30.20 per hoodie (57.85%).",
+          "Checked cash across tickets: $160.00 would remain after ticket 102's rent and ticket 101's invoice, short of the estimated $264.00 (12 × $22.00 accounting cost, not a vendor quote) for restocking 12.",
+          "Drafted an offer to the Yale AI Club: up to 8 hoodies at $52.20 now, or wait for the remaining 12, with nothing reserved and no restock promised."
+        ],
+        "external_steps_outstanding": [
+          "A person sends the drafted offer to the Yale AI Club.",
+          "The club chooses between taking the 8 now and waiting for the remaining 12.",
+          "If the club waits, restocking the 12 would need a confirmed vendor price, available funds, and a separate human approval."
+        ],
+        "not_claimed": [
+          "The club has not accepted the offer.",
+          "No hoodies are reserved.",
+          "No restock of the 12 is ordered or funded.",
+          "No message has been sent."
+        ]
+      }
+    }
+  ],
+  "outcomes_note": "For each ticket, 'operational_resolution' separates what a human approved, what the agents accomplished inside the simulation, and the external steps the simulation cannot perform."
+}

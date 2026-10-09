@@ -1,0 +1,676 @@
+{
+  "generated_at": "2026-10-09T13:44:49+00:00",
+  "what_this_is": "Smoke test of the Campus Customs MCP server. The server was started over stdio exactly as the backend and .mcp.json start it (python -m mcp_server.server), and every tool was called.",
+  "database_used": "An isolated temporary copy of the project with a copy of the submitted data/campus_customs_new.db (final state after the graded run). Write-tool tests (refusals, reset, a test payment) ran only on that copy; the submitted databases were not touched.",
+  "server_tools": [
+    "check_vendor_invoice_status",
+    "evaluate_price_override",
+    "get_cash_balance",
+    "get_lease_rent_status",
+    "get_payment_history",
+    "get_product_stock_and_pricing",
+    "get_ticket",
+    "list_open_tickets",
+    "list_tickets",
+    "list_vendors",
+    "preview_payment_plan",
+    "record_approved_payment",
+    "reset_working_database_to_original",
+    "update_ticket_status"
+  ],
+  "tools_exercised": [
+    "check_vendor_invoice_status",
+    "evaluate_price_override",
+    "get_cash_balance",
+    "get_lease_rent_status",
+    "get_payment_history",
+    "get_product_stock_and_pricing",
+    "get_ticket",
+    "list_open_tickets",
+    "list_tickets",
+    "list_vendors",
+    "preview_payment_plan",
+    "record_approved_payment",
+    "reset_working_database_to_original",
+    "update_ticket_status"
+  ],
+  "all_tools_exercised": true,
+  "checks_passed": 23,
+  "checks_total": 23,
+  "original_database_sha256_in_copy": "23686a90d698f7fa6f901a3f0a9774db9cbb31e13151c9e5717275f3321f360a",
+  "checks": [
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "get_ticket",
+      "args": {
+        "ticket_id": 101
+      },
+      "expected": "ticket 101 found, status resolved",
+      "passed": true,
+      "result": {
+        "found": true,
+        "shop_date_today": "2026-08-31",
+        "ticket": {
+          "id": 101,
+          "type": "customer_order",
+          "requester": "Tauhid Zaman",
+          "subject": "Bulldog tee",
+          "sku": "CC-TEE-WHITE",
+          "size": "S",
+          "qty": 1,
+          "lease_id": null,
+          "invoice_id": 501,
+          "status": "resolved",
+          "notes": "Needs a tee in size S.",
+          "created_at": "2026-08-31T09:15:00-04:00"
+        }
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "get_ticket",
+      "args": {
+        "ticket_id": 999
+      },
+      "expected": "found=false, nothing invented",
+      "passed": true,
+      "result": {
+        "found": false,
+        "message": "No ticket with id 999."
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "list_open_tickets",
+      "args": {},
+      "expected": "no open tickets",
+      "passed": true,
+      "result": {
+        "shop_date_today": "2026-08-31",
+        "tickets": []
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "list_tickets",
+      "args": {},
+      "expected": "101, 102, 103 all resolved",
+      "passed": true,
+      "result": {
+        "shop_date_today": "2026-08-31",
+        "tickets": [
+          {
+            "id": 101,
+            "type": "customer_order",
+            "requester": "Tauhid Zaman",
+            "subject": "Bulldog tee",
+            "sku": "CC-TEE-WHITE",
+            "size": "S",
+            "qty": 1,
+            "lease_id": null,
+            "invoice_id": 501,
+            "status": "resolved",
+            "notes": "Needs a tee in size S.",
+            "created_at": "2026-08-31T09:15:00-04:00"
+          },
+          {
+            "id": 102,
+            "type": "rent_notice",
+            "requester": "Elm City Properties",
+            "subject": "Rent due",
+            "sku": null,
+            "size": null,
+            "qty": null,
+            "lease_id": 1,
+            "invoice_id": null,
+            "status": "resolved",
+            "notes": "Email: shop rent due in 2 days.",
+            "created_at": "2026-08-31T11:05:00-04:00"
+          },
+          {
+            "id": 103,
+            "type": "price_override",
+            "requester": "Yale AI Club",
+            "subject": "Bulk hoodie discount",
+            "sku": "CC-HOOD-NAVY",
+            "size": "M",
+            "qty": 20,
+            "lease_id": null,
+            "invoice_id": null,
+            "status": "resolved",
+            "notes": "Student org wants 20 hoodies, size M, asking for a bulk discount.",
+            "created_at": "2026-08-31T16:55:00-04:00"
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "get_product_stock_and_pricing",
+      "args": {
+        "sku": "CC-TEE-WHITE",
+        "size": "S"
+      },
+      "expected": "0 on hand, cost 8, list 28",
+      "passed": true,
+      "result": {
+        "found": true,
+        "sku": "CC-TEE-WHITE",
+        "stock": [
+          {
+            "sku": "CC-TEE-WHITE",
+            "name": "Classic Bulldog Tee",
+            "size": "S",
+            "qty": 0,
+            "location": "Aisle B"
+          }
+        ],
+        "pricing": {
+          "unit_cost": 8.0,
+          "list_price": 28.0
+        }
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "get_product_stock_and_pricing",
+      "args": {
+        "sku": "CC-HOOD-NAVY",
+        "size": "M"
+      },
+      "expected": "8 on hand, cost 22, list 58",
+      "passed": true,
+      "result": {
+        "found": true,
+        "sku": "CC-HOOD-NAVY",
+        "stock": [
+          {
+            "sku": "CC-HOOD-NAVY",
+            "name": "Basic Hoodie Big Yale",
+            "size": "M",
+            "qty": 8,
+            "location": "Aisle A"
+          }
+        ],
+        "pricing": {
+          "unit_cost": 22.0,
+          "list_price": 58.0
+        }
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "evaluate_price_override",
+      "args": {
+        "sku": "CC-HOOD-NAVY",
+        "quantity": 8,
+        "proposed_unit_price": 52.2
+      },
+      "expected": "revenue 417.60, margin 241.60, not below cost",
+      "passed": true,
+      "result": {
+        "found": true,
+        "sku": "CC-HOOD-NAVY",
+        "quantity": 8,
+        "unit_cost": 22.0,
+        "at_list_price": {
+          "unit_price": 58.0,
+          "unit_margin": 36.0,
+          "margin_pct": 62.07,
+          "order_revenue": 464.0,
+          "order_cost": 176.0,
+          "order_margin": 288.0
+        },
+        "at_proposed_price": {
+          "unit_price": 52.2,
+          "unit_margin": 30.2,
+          "margin_pct": 57.85,
+          "order_revenue": 417.6,
+          "order_cost": 176.0,
+          "order_margin": 241.6
+        },
+        "discount_per_unit": 5.8,
+        "discount_pct": 10.0,
+        "revenue_given_up": 46.4,
+        "below_or_at_cost": false,
+        "requires_human_approval": true
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "list_vendors",
+      "args": {},
+      "expected": "Bulldog Print Co can ship (invoice 501 paid)",
+      "passed": true,
+      "result": {
+        "shop_date_today": "2026-08-31",
+        "vendors": [
+          {
+            "id": 1,
+            "name": "Bulldog Print Co",
+            "specialty": "apparel reprint",
+            "lead_days": 5,
+            "unpaid_invoice_ids": [],
+            "total_unpaid": 0,
+            "can_ship_new_inventory": true,
+            "earliest_arrival_if_ordered_today": "2026-09-05"
+          },
+          {
+            "id": 2,
+            "name": "Elm City Gifts",
+            "specialty": "mugs and small goods",
+            "lead_days": 3,
+            "unpaid_invoice_ids": [],
+            "total_unpaid": 0,
+            "can_ship_new_inventory": true,
+            "earliest_arrival_if_ordered_today": "2026-09-03"
+          },
+          {
+            "id": 3,
+            "name": "QuickShip CT",
+            "specialty": "local courier",
+            "lead_days": 1,
+            "unpaid_invoice_ids": [],
+            "total_unpaid": 0,
+            "can_ship_new_inventory": true,
+            "earliest_arrival_if_ordered_today": "2026-09-01"
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "check_vendor_invoice_status",
+      "args": {
+        "invoice_id": 501
+      },
+      "expected": "invoice 501 paid, nothing unpaid",
+      "passed": true,
+      "result": {
+        "found": true,
+        "shop_date_today": "2026-08-31",
+        "vendor": {
+          "id": 1,
+          "name": "Bulldog Print Co",
+          "specialty": "apparel reprint",
+          "lead_days": 5
+        },
+        "invoices": [
+          {
+            "id": 501,
+            "vendor_id": 1,
+            "amount": 840.0,
+            "due_date": "2026-08-28",
+            "status": "paid",
+            "description": "Rush reprint CC-TEE-WHITE S",
+            "is_unpaid": false,
+            "is_overdue": false,
+            "days_overdue": 0
+          }
+        ],
+        "unpaid_invoice_ids": [],
+        "total_unpaid": 0,
+        "can_ship_new_inventory": true
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "get_lease_rent_status",
+      "args": {
+        "lease_id": 1
+      },
+      "expected": "next due 2026-10-02, payment 1 listed",
+      "passed": true,
+      "result": {
+        "found": true,
+        "shop_date_today": "2026-08-31",
+        "lease": {
+          "id": 1,
+          "space_name": "Chapel Street shop",
+          "landlord": "Elm City Properties",
+          "monthly_rent": 2400.0,
+          "next_due": "2026-10-02",
+          "notes": null
+        },
+        "days_until_due": 32,
+        "is_overdue": false,
+        "rent_payments_recorded": [
+          {
+            "id": 1,
+            "amount": 2400.0,
+            "paid_at": "2026-08-31",
+            "approved_by": "Charlotte Simonds"
+          }
+        ],
+        "how_next_due_works": "next_due is the next unpaid installment. Each recorded rent payment pays the installment that was due at the time and moves next_due forward one month."
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "get_cash_balance",
+      "args": {},
+      "expected": "checking 160.00",
+      "passed": true,
+      "result": {
+        "shop_date_today": "2026-08-31",
+        "accounts": [
+          {
+            "name": "checking",
+            "balance": 160.0,
+            "date": "2026-08-31"
+          }
+        ],
+        "total_balance": 160.0
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "get_payment_history",
+      "args": {},
+      "expected": "exactly 2 payments: rent 2400 and invoice 840, approved by Charlotte Simonds",
+      "passed": true,
+      "result": {
+        "shop_date_today": "2026-08-31",
+        "filters": {
+          "kind": null,
+          "ref_id": null
+        },
+        "payments": [
+          {
+            "id": 2,
+            "kind": "invoice",
+            "ref_id": 501,
+            "amount": 840.0,
+            "account": "checking",
+            "paid_at": "2026-08-31",
+            "approved_by": "Charlotte Simonds"
+          },
+          {
+            "id": 1,
+            "kind": "rent",
+            "ref_id": 1,
+            "amount": 2400.0,
+            "account": "checking",
+            "paid_at": "2026-08-31",
+            "approved_by": "Charlotte Simonds"
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "phase": "Final-state reads (copy of the submitted working database)",
+      "tool": "preview_payment_plan",
+      "args": {
+        "payments": [
+          {
+            "kind": "rent",
+            "ref_id": 1
+          }
+        ]
+      },
+      "expected": "October rent not payable: insufficient cash (needs 2400, 160 available)",
+      "passed": true,
+      "result": {
+        "ok": true,
+        "shop_date_today": "2026-08-31",
+        "account": "checking",
+        "starting_balance": 160.0,
+        "items": [
+          {
+            "kind": "rent",
+            "ref_id": 1,
+            "amount": 2400.0,
+            "payee": "Elm City Properties",
+            "due_date": "2026-10-02",
+            "description": "Rent installment due 2026-10-02",
+            "payable": false,
+            "reason": "Insufficient cash: needs 2400.00, 160.00 available at this point."
+          }
+        ],
+        "total_of_payable_items": 0,
+        "ending_balance_if_all_payable_items_paid": 160.0,
+        "all_items_payable": false,
+        "requires_human_approval": true
+      },
+      "error": null
+    },
+    {
+      "phase": "Safety refusals on the copy (no data changes expected)",
+      "tool": "record_approved_payment",
+      "args": {
+        "kind": "rent",
+        "ref_id": 1,
+        "approved_by": "Accounting"
+      },
+      "expected": "rejected: an agent cannot approve",
+      "passed": true,
+      "result": {
+        "status": "rejected",
+        "reason": "'Accounting' is not a human approver."
+      },
+      "error": null
+    },
+    {
+      "phase": "Safety refusals on the copy (no data changes expected)",
+      "tool": "record_approved_payment",
+      "args": {
+        "kind": "invoice",
+        "ref_id": 501,
+        "approved_by": "Smoke Test"
+      },
+      "expected": "rejected: invoice already paid",
+      "passed": true,
+      "result": {
+        "status": "rejected",
+        "reason": "Invoice 501 is already paid."
+      },
+      "error": null
+    },
+    {
+      "phase": "Safety refusals on the copy (no data changes expected)",
+      "tool": "record_approved_payment",
+      "args": {
+        "kind": "rent",
+        "ref_id": 1,
+        "approved_by": "Smoke Test"
+      },
+      "expected": "rejected: insufficient cash, balance stays 160",
+      "passed": true,
+      "result": {
+        "status": "rejected",
+        "reason": "Insufficient cash: payment of 2400.00 exceeds the checking balance of 160.00."
+      },
+      "error": null
+    },
+    {
+      "phase": "Safety refusals on the copy (no data changes expected)",
+      "tool": "get_cash_balance",
+      "args": {},
+      "expected": "still 160.00 after refusals",
+      "passed": true,
+      "result": {
+        "shop_date_today": "2026-08-31",
+        "accounts": [
+          {
+            "name": "checking",
+            "balance": 160.0,
+            "date": "2026-08-31"
+          }
+        ],
+        "total_balance": 160.0
+      },
+      "error": null
+    },
+    {
+      "phase": "Safety refusals on the copy (no data changes expected)",
+      "tool": "reset_working_database_to_original",
+      "args": {
+        "confirm": "yes"
+      },
+      "expected": "rejected without the exact RESET confirmation",
+      "passed": true,
+      "result": {
+        "status": "rejected",
+        "reason": "confirm must be exactly \"RESET\"."
+      },
+      "error": null
+    },
+    {
+      "phase": "Reset and fresh payment on the copy",
+      "tool": "reset_working_database_to_original",
+      "args": {
+        "confirm": "RESET"
+      },
+      "expected": "copy restored and verified identical to the original",
+      "passed": true,
+      "result": {
+        "status": "reset",
+        "restored_from": "campus_customs.db",
+        "restored_to": "campus_customs_new.db",
+        "verified": true,
+        "row_counts": {
+          "cash_accounts": 1,
+          "desk": 1,
+          "inventory": 10,
+          "invoices": 1,
+          "leases": 1,
+          "payments": 0,
+          "pricing": 4,
+          "tickets": 3,
+          "vendors": 3
+        }
+      },
+      "error": null
+    },
+    {
+      "phase": "Reset and fresh payment on the copy",
+      "tool": "get_cash_balance",
+      "args": {},
+      "expected": "checking back to 3400.00",
+      "passed": true,
+      "result": {
+        "shop_date_today": "2026-08-31",
+        "accounts": [
+          {
+            "name": "checking",
+            "balance": 3400.0,
+            "date": "2026-08-31"
+          }
+        ],
+        "total_balance": 3400.0
+      },
+      "error": null
+    },
+    {
+      "phase": "Reset and fresh payment on the copy",
+      "tool": "list_open_tickets",
+      "args": {},
+      "expected": "101, 102, 103 open again",
+      "passed": true,
+      "result": {
+        "shop_date_today": "2026-08-31",
+        "tickets": [
+          {
+            "id": 101,
+            "type": "customer_order",
+            "requester": "Tauhid Zaman",
+            "subject": "Bulldog tee",
+            "sku": "CC-TEE-WHITE",
+            "size": "S",
+            "qty": 1,
+            "lease_id": null,
+            "invoice_id": 501,
+            "status": "open",
+            "notes": "Needs a tee in size S.",
+            "created_at": "2026-08-31T09:15:00-04:00"
+          },
+          {
+            "id": 102,
+            "type": "rent_notice",
+            "requester": "Elm City Properties",
+            "subject": "Rent due",
+            "sku": null,
+            "size": null,
+            "qty": null,
+            "lease_id": 1,
+            "invoice_id": null,
+            "status": "open",
+            "notes": "Email: shop rent due in 2 days.",
+            "created_at": "2026-08-31T11:05:00-04:00"
+          },
+          {
+            "id": 103,
+            "type": "price_override",
+            "requester": "Yale AI Club",
+            "subject": "Bulk hoodie discount",
+            "sku": "CC-HOOD-NAVY",
+            "size": "M",
+            "qty": 20,
+            "lease_id": null,
+            "invoice_id": null,
+            "status": "open",
+            "notes": "Student org wants 20 hoodies, size M, asking for a bulk discount.",
+            "created_at": "2026-08-31T16:55:00-04:00"
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "phase": "Reset and fresh payment on the copy",
+      "tool": "record_approved_payment",
+      "args": {
+        "kind": "invoice",
+        "ref_id": 501,
+        "approved_by": "Smoke Test"
+      },
+      "expected": "paid: 3400 - 840 = 2560",
+      "passed": true,
+      "result": {
+        "status": "paid",
+        "payment": {
+          "id": 1,
+          "kind": "invoice",
+          "ref_id": 501,
+          "amount": 840.0,
+          "payee": "Bulldog Print Co",
+          "account": "checking",
+          "paid_at": "2026-08-31",
+          "approved_by": "Smoke Test"
+        },
+        "balance_after": 2560.0,
+        "invoice_status": "paid"
+      },
+      "error": null
+    },
+    {
+      "phase": "Reset and fresh payment on the copy",
+      "tool": "update_ticket_status",
+      "args": {
+        "ticket_id": 101,
+        "status": "resolved"
+      },
+      "expected": "status open -> resolved",
+      "passed": true,
+      "result": {
+        "found": true,
+        "ticket_id": 101,
+        "previous_status": "open",
+        "status": "resolved"
+      },
+      "error": null
+    }
+  ]
+}

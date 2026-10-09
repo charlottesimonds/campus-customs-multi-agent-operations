@@ -1,0 +1,24 @@
+# Secrets: never commit real credentials (use .env.example as the template)
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Node / frontend build output
+node_modules/
+frontend/dist/
+
+# OS and editor files
+.DS_Store
+.vscode/
+.idea/
+*.log
+
+# Note: both SQLite databases in data/ are deliberately NOT ignored.
+# data/campus_customs.db is the original data pack and data/campus_customs_new.db
+# preserves the completed assignment run.
